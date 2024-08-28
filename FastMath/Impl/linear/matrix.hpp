@@ -3,7 +3,7 @@
   作    者   : Barry
   生成日期   : 2024-08-26
   最近修改   :
-  功能描述   : 
+  功能描述   : 矩阵运算、分解
   函数列表   :
                 tmul        矩阵相乘
                 inv         矩阵求逆
@@ -38,6 +38,8 @@
 #include <iostream>
 
 #include "Impl/basic/complex.hpp"
+
+#define MatRef(name)    &name[0][0]
 
 namespace FastMath::Impl {
     inline double init(double p)       //实数初始化
@@ -80,15 +82,81 @@ namespace FastMath::Impl {
         return (q);
     }
 
-
-    inline std::string MatToString(double a[], int m, int n) {
+    /**
+     * 矩阵数组格式化为string类型
+     * @param a a[m][n] 矩阵数组
+     * @param m m 行数
+     * @param n n 列数
+     * @param w w 格式化时每个数据的占位宽度
+     * @return 返回string类型的字符串
+     */
+    inline std::string MatToString(double a[], int m, int n, int w = 10) {
         std::stringstream ss;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++)
-                ss << a[i * n + j] << "    ";
+                ss << std::setw(w) << a[i * n + j] << "    ";
             ss << std::endl;
         }
         return ss.str();
+    }
+
+    /**
+     * 检查两个矩阵是否相等
+     * @tparam m 矩阵行数
+     * @tparam n 矩阵列数
+     * @param a a[m][n]
+     * @param b b[m][n]
+     * @param eps 检查精度
+     * @return 返回是否相等
+     */
+
+    template<size_t m, size_t n>
+    inline bool isEqual(double a[], double b[], double eps = 1E-12)
+    {
+        bool eq = true;
+        for (int i = 0; i < m; ++i)
+            for (int j = 0; j < n; ++j)
+                eq &= std::abs(a[i*n + j] - b[i*n + j]) <= eps;
+        return eq;
+    }
+
+    /**
+     * 矩阵数组拷贝, 将a拷贝到b
+     * @tparam m 行数
+     * @tparam n 列数
+     * @tparam T 元素类型 double或complex
+     * @param a a[m][n]
+     * @param b b[m][n]
+     */
+    template<size_t m, size_t n, typename T>
+    inline void MatCopy(T a[], T b[])
+    {
+        std::memcpy(b, a, sizeof(T)*m*n);
+    }
+
+    /**
+     * 将矩阵设置为全0
+     * @param a a[m][n]
+     * @param m 行数
+     * @param n 列数
+     */
+    inline void setZero(double a[], int m, int n)
+    {
+        std::memset(a, 0, sizeof(double)*m*n);
+    }
+
+    /**
+     * 将矩阵对角线设为1
+     * @param a a[m][n]
+     * @param m 行数
+     * @param n 列数
+     */
+    inline void setIdentity(double a[], int m, int n)
+    {
+        int num_d = m > n ? n : m;
+        std::memset(a, 0, sizeof(double)*m*n);
+        for (int i = 0; i < num_d; ++i)
+                a[i*n + i] = 1.0;
     }
 
     /*  矩阵相乘
