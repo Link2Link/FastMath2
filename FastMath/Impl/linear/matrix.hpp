@@ -40,6 +40,7 @@
 #include "Impl/basic/complex.hpp"
 
 #define MatRef(name)    &name[0][0]
+#define FastMatRef(name)    &name._data[0][0]
 
 namespace FastMath::Impl {
     inline double init(double p)       //实数初始化
@@ -942,7 +943,6 @@ namespace FastMath::Impl {
                 }
             }
         }
-        std::cout << __LINE__ << std::endl;
         return (1);
     }
 
@@ -1007,7 +1007,7 @@ namespace FastMath::Impl {
      * */
 
     template<size_t m, size_t n>
-    inline int ginv(double a[], double aa[], double u[], double vt[], double eps = 1E-6) {
+    inline int ginv(double a[], double aa[], double u[], double vt[], double eps = 1E-10) {
         int i, j, k, l, t, p, q, f;
         i = muav<m, n>(a, u, vt, eps);
         if (i < 0) return (-1);
