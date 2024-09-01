@@ -856,9 +856,69 @@ namespace FastMath
 
             return res;
         }
-
+        void Print_Binary(unsigned int x) {
+            if (x > 1) {
+                Print_Binary(x >> 1);
+            }
+            putchar((x & 1) ? '1' : '0');
+        }
 
         /* For Square Matrix */
+
+        SquareMatrix<Type, N> power(size_t s)
+        {
+            // calc order t
+            int t = 0;
+            size_t temp = s;
+            while (temp != 0)
+            {
+                t++;
+                temp = temp / 2;
+            }
+            SquareMatrix<Type, N> Z = *this;
+
+            auto beta = [s](size_t k) -> bool {
+                return (s >> k) & 0x01;
+            };
+
+            size_t q = 0;
+            while (beta(q) == 0)
+            {
+                Z = Z * Z;
+                q++;
+            }
+            auto F = Z;
+            for (size_t k = q + 1; k < t; ++k)
+            {
+                Z = Z * Z;
+                if (((s >> k) & 0x01) != 0)
+                {
+                    F *= Z;
+                }
+            }
+
+            return F;
+        }
+
+        SquareMatrix<Type, N> sqrt()
+        {
+            SquareMatrix<Type, N> X;
+            SquareMatrix<Type, N> Y;
+
+            SquareMatrix<Type, N> X_new = *this;
+            SquareMatrix<Type, N> Y_new = SquareMatrix<Type, N>::Identity();
+
+            int it = 0;
+            while ( (X-X_new).norm_inf() > 1E-14 && it < 20)
+            {
+                X = X_new;
+                Y = Y_new;
+                X_new = (X + Y.inv())/2;
+                Y_new = (Y + X.inv())/2;
+                it++;
+            }
+            return X;
+        }
 
         // get matrix upper right triangle in a row-major vector format
         Vector<Type, M * (M + 1) / 2> upper_right_triangle() const
@@ -1027,7 +1087,7 @@ namespace FastMath
                 Matrix<Type, M, M> inv;
                 Type det = A(0, 0) * A(1, 1) - A(1, 0) * A(0, 1);
 
-                if(std::fabs(static_cast<float>(det)) < FLT_EPSILON || !is_finite(det)) {
+                if(std::fabs(static_cast<float>(det)) < FLT_EPSILON || !Impl::is_finite(det)) {
                     inv.setZero();
                     return inv;
                 }
@@ -1409,6 +1469,32 @@ namespace FastMath
             }
 
             return e;
+        }
+
+        // 使用反向缩放平方法计算logm
+        SquareMatrix<Type, M> logm()
+        {
+            CLAIM_SQUARE_MATRIX;
+            SquareMatrix<Type, M> A = *this;
+            SquareMatrix<Type, M> I;
+            I.setIdentity();
+            // 平方收缩
+            int k = 0;
+            while ((A-I).norm_inf() > 1e-2)
+            {
+                k++;
+                A = A.sqrt();
+            }
+            // Pade近似
+            SquareMatrix<Type, M> A_I = A - I;
+            SquareMatrix<Type, M> A_I2 = A_I * A_I;
+            SquareMatrix<Type, M> A_I3 = A_I2 * A_I;
+            SquareMatrix<Type, M> DA = 60*I + 90*A_I + 36*A_I2 + 3*A_I3;
+            SquareMatrix<Type, M> NA = 60*A_I + 60*A_I2 + 11*A_I3;
+
+            A = DA.inv() * NA * std::pow(2.0, k);
+
+            return A;
         }
 
 

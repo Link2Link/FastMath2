@@ -1,18 +1,21 @@
 #include <iostream>
 #include <cmath>
 
-#include "Core/Matrix.hpp"
+#include "FastMath.hpp"
 
 int main() {
 
     using namespace FastMath;
     using namespace FastMath::Impl;
-    Matrix<double, 3, 3> X = Matrix3d::Rand();
-    Matrix<double, 3, 3> Y = Matrix3d::Identity() * 0.5;
+    Matrix<double, 2, 2> A;
+    double theta = 1;
+    A(0,0) = cos(theta);
+    A(0,1) = sin(theta);
+    A(1,0) = -sin(theta);
+    A(1,1) = cos(theta);
 
-    std::cout << X << std::endl;
-    std::cout << Y << std::endl;
-    std::cout << constrain(X, 0.2, 0.6) << std::endl;
+    std::cout << A << std::endl;
+    std::cout << A.logm() << std::endl;
 
     return 0;
 
