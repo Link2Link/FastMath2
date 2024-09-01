@@ -35,6 +35,7 @@
 
 namespace FastMath
 {
+    using namespace Impl;
     template<typename Type, size_t M, size_t N>
     class Matrix;
 
