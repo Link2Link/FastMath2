@@ -136,7 +136,7 @@ namespace FastMath
          * 从单个元素构建矩阵
          * @param val
          */
-        explicit Matrix(const Type val)
+        Matrix(const Type val)
         {
             for (size_t i = 0; i < M; i++) {
                 for (size_t j = 0; j < N; j++) {
@@ -149,7 +149,7 @@ namespace FastMath
          * 从一维数组构建矩阵
          * @param dat_data_
          */
-        explicit Matrix(const Type dat_data_[M*N])
+        Matrix(const Type dat_data_[M*N])
         {
             for (size_t i = 0; i < M; i++) {
                 for (size_t j = 0; j < N; j++) {
@@ -162,7 +162,7 @@ namespace FastMath
          * 从二维数组构建矩阵
          * @param dat_data_
          */
-        explicit Matrix(const Type dat_data_[M][N])
+        Matrix(const Type dat_data_[M][N])
         {
             for (size_t i = 0; i < M; i++) {
                 for (size_t j = 0; j < N; j++) {
@@ -175,7 +175,7 @@ namespace FastMath
          * 从array构建矩阵，支持列表初始化
          * @param dat_data_
          */
-        explicit Matrix(const std::array<Type, M*N> dat_data_)
+        Matrix(const std::array<Type, M*N> dat_data_)
         {
             for (size_t i = 0; i < M; i++) {
                 for (size_t j = 0; j < N; j++) {
@@ -223,7 +223,7 @@ namespace FastMath
          * @param in_slice
          */
         template<size_t P, size_t Q>
-        explicit Matrix(const Slice<Type, M, N, P, Q>& in_slice)
+        Matrix(const Slice<Type, M, N, P, Q>& in_slice)
         {
             Matrix<Type, M, N>& self = *this;
             for (size_t i = 0; i < M; i++) {
