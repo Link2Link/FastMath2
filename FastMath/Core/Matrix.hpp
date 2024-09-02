@@ -110,7 +110,7 @@ namespace FastMath
     };
 
     template<size_t M, size_t N>
-    struct vsis_greater_or_equal {
+    struct is_greater_or_equal {
         static constexpr bool value = M >= N;
     };
 
