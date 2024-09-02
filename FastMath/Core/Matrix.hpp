@@ -71,7 +71,7 @@ namespace FastMath
 
     template<size_t M, size_t N>
     struct is_square {
-        static constexpr bool value = (M == N) && (is_matrix<M,N>::value);
+        static constexpr bool value = (M == N);
     };
 
     template<size_t M, size_t N>
@@ -292,6 +292,7 @@ namespace FastMath
             }
             return (*this);
         }
+
 
         void copyTo(Type dst[M*N]) const
         {
@@ -702,6 +703,16 @@ namespace FastMath
                     self(i, j) = val;
                 }
             }
+        }
+
+        size_t cols()
+        {
+            return N;
+        }
+
+        size_t rows()
+        {
+            return M;
         }
 
         inline void setOne()
@@ -1421,13 +1432,29 @@ namespace FastMath
         }
 
         // SVD求伪逆
-        bool pinv(Matrix<Type, N, M>& res)
+        inline Matrix<Type, N, M> Geninv()
+        {
+            Matrix<Type, N, M> res;
+            this->Geninv(res);
+            return res;
+        }
+
+        // SVD求伪逆
+        inline bool pinv(Matrix<Type, N, M>& res)
         {
             Matrix<Type, M, N> A = *this;
             Matrix<Type, M, M> U;
             Matrix<Type, N, N> VT;
             int flag = Impl::ginv<M, N>(FastMatRef(A), FastMatRef(res), FastMatRef(U), FastMatRef(VT), 1E-10);
             return flag;
+        }
+
+        // SVD求伪逆
+        inline Matrix<Type, N, M> pinv()
+        {
+            Matrix<Type, N, M> res;
+            this->pinv(res);
+            return res;
         }
 
 
@@ -1989,6 +2016,16 @@ namespace FastMath
 
         return mat;
 
+    }
+
+    template <typename Type, size_t N>
+    SquareMatrix<Type, N> diag(Vector<Type, N> vec)
+    {
+        SquareMatrix<Type, N> A;
+        A.setZero();
+        for (size_t k = 0; k < N; ++k)
+            A(k,k) = vec(k);
+        return A;
     }
 
 
