@@ -8,9 +8,21 @@ int main() {
     using namespace FastMath;
     using namespace FastMath::Algorithm;
 
-    SquareMatrix<double, 4> T = {1,2,3,4,5,6,7,8};
-    SquareMatrix<double, 3> R = T.slice<3,3>(0,0);
-    std::cout << R << std::endl;
+
+    Matrix<double, 3, 3> A = Matrix<double, 3, 3>::Rand();
+
+    Vector3d x_{1,2,3};
+    auto x = Vector2Dual(x_);
+    auto y = Vector2Dual(Vector3d::Zeros());
+    Dual<double, 3> z;
+    A.setIdentity();
+
+    y = A * x;
+
+    for (size_t k = 0; k < 3; ++k)
+        z += y(k);
+
+    std::cout << z << std::endl;
 
     return 0;
 

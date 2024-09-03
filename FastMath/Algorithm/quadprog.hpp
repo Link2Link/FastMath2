@@ -106,15 +106,15 @@ namespace FastMath::Algorithm
             if (a1 > b1)
             {
                 t = (b1 / a1);
-                return a1 * sqrt(1.0 + t * t);
+                return a1 * std::sqrt(1.0 + t * t);
             }
             else
             if (b1 > a1)
             {
                 t = (a1 / b1);
-                return b1 * sqrt(1.0 + t * t);
+                return b1 * std::sqrt(1.0 + t * t);
             }
-            return a1 * sqrt(2.0);
+            return a1 * std::sqrt(2.0);
         }
 
 
@@ -335,7 +335,7 @@ namespace FastMath::Algorithm
                             throw std::logic_error(os.str());
                             exit(-1);
                         }
-                        A(i,i) = sqrt(sum);
+                        A(i,i) = std::sqrt(sum);
                     }
                     else
                         A(j,i) = sum / A(i,i);

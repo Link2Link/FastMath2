@@ -15,5 +15,5 @@
 #define FASTMATH2_CORE_HPP
 
 #include "Core/Matrix.hpp"
-
+#include "Core/Dual.hpp"
 #endif //FASTMATH2_CORE_HPP
