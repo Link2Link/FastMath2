@@ -14,6 +14,8 @@
 #ifndef FASTMATH2_FASTMATH_HPP
 #define FASTMATH2_FASTMATH_HPP
 
+//#define DebugSupport
+
 #include "Impl/impl.hpp"
 #include "Core/Core.hpp"
 

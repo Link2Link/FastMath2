@@ -25,5 +25,9 @@
 #include "Impl/util/filter.hpp"
 #include "Impl/util/function.hpp"
 
+#ifdef DebugSupport
+#include "Impl/util/dbg.h"
+#endif
+
 
 #endif //FASTMATH2_IMPL_HPP

@@ -2,27 +2,34 @@
 #include <cmath>
 #include "FastMath.hpp"
 #include "Algorithm/quadprog.hpp"
-
+#include "Algorithm/qcqp.hpp"
 int main() {
 
     using namespace FastMath;
     using namespace FastMath::Algorithm;
 
-
-    Matrix<double, 3, 3> A = Matrix<double, 3, 3>::Rand();
-
-    Vector3d x_{1,2,3};
-    auto x = Vector2Dual(x_);
-    auto y = Vector2Dual(Vector3d::Zeros());
-    Dual<double, 3> z;
+//    double A[4] = {1,0,0,1};
+    SquareMatrix<double, 2> A;
     A.setIdentity();
+    A += Matrix2d::Identity() *3;
+    A(0, 1) = 2;
+    A(1, 0) = 2;
 
-    y = A * x;
+//    double b[2] = {-2, -3};
+    Vector2d b = {-2, -3};
 
-    for (size_t k = 0; k < 3; ++k)
-        z += y(k);
+//    double d[2] = {1, 1};
+    Vector2d d = {1,2};
+    double r = 0.5;
 
-    std::cout << z << std::endl;
+//    double x[2] = {};
+    Vector2d x;
+
+    QCQP(x, A, b, d, r);
+
+    std::cout << x  << std::endl;
+
+    std::cout << "cost : " <<  (0.5*x.transpose()*A*x + x.transpose()*b).Scalar() << std::endl;
 
     return 0;
 
