@@ -868,12 +868,12 @@ namespace FastMath
 
             return res;
         }
-        void Print_Binary(unsigned int x) {
-            if (x > 1) {
-                Print_Binary(x >> 1);
-            }
-            putchar((x & 1) ? '1' : '0');
-        }
+//        void Print_Binary(unsigned int x) {
+//            if (x > 1) {
+//                Print_Binary(x >> 1);
+//            }
+//            putchar((x & 1) ? '1' : '0');
+//        }
 
         /* For Square Matrix */
 

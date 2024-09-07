@@ -11,7 +11,7 @@ int main() {
 //    double A[4] = {1,0,0,1};
     SquareMatrix<double, 2> A;
     A.setIdentity();
-    A += Matrix2d::Identity() *3;
+    A += 3 * Matrix2d::Identity() ;
     A(0, 1) = 2;
     A(1, 0) = 2;
 
