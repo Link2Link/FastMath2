@@ -1017,7 +1017,7 @@ namespace FastMath
                 sum = 0.0;
                 for (size_t i = 0; i < M; ++i)
                 {
-                    sum += abs(mat(i,j));
+                    sum += std::abs(mat(i,j));
                 }
                 norm = (norm > sum) ? norm : sum;
             }
