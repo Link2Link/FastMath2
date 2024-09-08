@@ -1342,6 +1342,7 @@ namespace FastMath
 
         int QR(Matrix<Type, M, M>& Q, Matrix<Type, M, N>& R)
         {
+            static_assert(is_greater_or_equal<M,N>::value);
             R = *this;
             int flag = Impl::maqr(MatRef(R._data), M, N, MatRef(Q._data));
             return flag;

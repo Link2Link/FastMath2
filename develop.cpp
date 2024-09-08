@@ -2,12 +2,17 @@
 #include "FastMath.hpp"
 int main() {
 
-    fm::Matrix3d A = {1,2,3,4,5,6};
-    std::cout << A.rank() << std::endl; // 矩阵的秩
-    std::cout << A.norm() << std::endl;     // 矩阵的L2范数
-    std::cout << A.norm_one() << std::endl;     // 矩阵的L1范数
-    std::cout << A.trace() << std::endl;    // 矩阵的迹
-    std::cout << A.det() << std::endl; // 矩阵的行列式
+    fm::Matrix<double, 4, 3> A = {1,2,3,4,5,6,1};
+
+    fm::Matrix<double, 4, 4> Q;
+    fm::Matrix<double, 4, 3> R;
+
+    auto success = A.QR(Q, R);
+    std::cout << success << std::endl;
+    std::cout << A << std::endl;
+    std::cout << Q << std::endl;
+    std::cout << R << std::endl;
+    std::cout << Q*R << std::endl;
     return 0;
 }
 
