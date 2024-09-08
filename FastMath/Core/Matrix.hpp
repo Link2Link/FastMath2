@@ -1953,7 +1953,7 @@ namespace FastMath
 
     // extra functions
     template<typename Type, size_t  M, size_t N>
-    std::ostream& operator<<(std::ostream& os,
+    inline std::ostream& operator<<(std::ostream& os,
                              const Matrix<Type, M, N>& matrix)
     {
         for (size_t i = 0; i < M; ++i) {
@@ -1968,7 +1968,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t  P, size_t Q, size_t  M, size_t N>
-    std::ostream& operator<<(std::ostream& os,
+    inline std::ostream& operator<<(std::ostream& os,
                              Slice<Type, P, Q, M, N> slice)
     {
         os << slice.mat();
@@ -1977,7 +1977,7 @@ namespace FastMath
 
 
     template<typename Type, size_t M, size_t N1, size_t N2>
-    Matrix<Type, M, N1+N2> cat_row(Matrix<Type, M, N1> mat1, Matrix<Type, M, N2> mat2)
+    inline Matrix<Type, M, N1+N2> cat_row(Matrix<Type, M, N1> mat1, Matrix<Type, M, N2> mat2)
     {
         Matrix<Type, M, N1+N2> mat;
         for (size_t i = 0; i < M; ++i)
@@ -1998,7 +1998,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t M1, size_t M2, size_t N>
-    Matrix<Type, M1+M2, N> cat_col(Matrix<Type, M1, N> mat1, Matrix<Type, M2, N> mat2)
+    inline Matrix<Type, M1+M2, N> cat_col(Matrix<Type, M1, N> mat1, Matrix<Type, M2, N> mat2)
     {
         Matrix<Type, M1+M2, N> mat;
         for (size_t i = 0; i < M1; ++i)
@@ -2019,7 +2019,7 @@ namespace FastMath
     }
 
     template <typename Type, size_t N>
-    SquareMatrix<Type, N> diag(Vector<Type, N> vec)
+    inline SquareMatrix<Type, N> diag(Vector<Type, N> vec)
     {
         SquareMatrix<Type, N> A;
         A.setZero();
@@ -2031,20 +2031,20 @@ namespace FastMath
 
     // 允许隐式类型转换
     template<typename Type1, typename Type2, size_t  M, size_t N>
-    Matrix<Type2, M, N> operator*(Type1 scalar, const Matrix<Type2, M, N> &other)
+    inline Matrix<Type2, M, N> operator*(Type1 scalar, const Matrix<Type2, M, N> &other)
     {
         return other * scalar;
     }
 
     // 允许隐式类型转换
     template<typename Type1, typename Type2, size_t  M, size_t N>
-    Matrix<Type2, M, N> operator+(Type1 scalar, const Matrix<Type2, M, N> &other)
+    inline Matrix<Type2, M, N> operator+(Type1 scalar, const Matrix<Type2, M, N> &other)
     {
         return other + scalar;
     }
 
     template<typename Type1, typename Type2, size_t  M, size_t N>
-    Matrix<Type2, M, N> operator-(Type1 scalar, const Matrix<Type2, M, N> &other)
+    inline Matrix<Type2, M, N> operator-(Type1 scalar, const Matrix<Type2, M, N> &other)
     {
         return -other + scalar;
     }
@@ -2053,7 +2053,7 @@ namespace FastMath
     namespace typeFunction
     {
         template<typename Type>
-        Type min(const Type x, const Type y) {
+        inline Type min(const Type x, const Type y) {
             bool x_is_nan = std::isnan(x);
             bool y_is_nan = std::isnan(y);
             // take the non-nan value if there is one
@@ -2068,7 +2068,7 @@ namespace FastMath
         }
 
         template<typename Type>
-        Type max(const Type x, const Type y) {
+        inline Type max(const Type x, const Type y) {
             bool x_is_nan = std::isnan(x);
             bool y_is_nan = std::isnan(y);
             // take the non-nan value if there is one
@@ -2083,7 +2083,7 @@ namespace FastMath
         }
 
         template<typename Type>
-        Type constrain(const Type x, const Type lower_bound, const Type upper_bound) {
+        inline Type constrain(const Type x, const Type lower_bound, const Type upper_bound) {
             if (lower_bound > upper_bound) {
                 return NAN;
             } else if(std::isnan(x)) {
@@ -2095,7 +2095,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> min(const Matrix<Type, M, N> &x, const Type scalar_upper_bound) {
+    inline Matrix<Type, M, N> min(const Matrix<Type, M, N> &x, const Type scalar_upper_bound) {
         Matrix<Type,M,N> m;
         for (size_t i = 0; i < M; i++) {
             for (size_t j = 0; j < N; j++) {
@@ -2106,12 +2106,12 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> min(const Type scalar_upper_bound, const Matrix<Type, M, N> &x) {
+    inline Matrix<Type, M, N> min(const Type scalar_upper_bound, const Matrix<Type, M, N> &x) {
         return min(x, scalar_upper_bound);
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> min(const Matrix<Type, M, N> &x1, const Matrix<Type, M, N> &x2) {
+    inline Matrix<Type, M, N> min(const Matrix<Type, M, N> &x1, const Matrix<Type, M, N> &x2) {
         Matrix<Type,M,N> m;
         for (size_t i = 0; i < M; i++) {
             for (size_t j = 0; j < N; j++) {
@@ -2122,7 +2122,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> max(const Matrix<Type, M, N> &x, const Type scalar_lower_bound) {
+    inline Matrix<Type, M, N> max(const Matrix<Type, M, N> &x, const Type scalar_lower_bound) {
         Matrix<Type,M,N> m;
         for (size_t i = 0; i < M; i++) {
             for (size_t j = 0; j < N; j++) {
@@ -2133,12 +2133,12 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> max(const Type scalar_lower_bound, const Matrix<Type, M, N> &x) {
+    inline Matrix<Type, M, N> max(const Type scalar_lower_bound, const Matrix<Type, M, N> &x) {
         return max(x, scalar_lower_bound);
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> max(const Matrix<Type, M, N> &x1, const Matrix<Type, M, N> &x2) {
+    inline Matrix<Type, M, N> max(const Matrix<Type, M, N> &x1, const Matrix<Type, M, N> &x2) {
         Matrix<Type,M,N> m;
         for (size_t i = 0; i < M; i++) {
             for (size_t j = 0; j < N; j++) {
@@ -2149,7 +2149,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> constrain(const Matrix<Type, M, N> &x,
+    inline Matrix<Type, M, N> constrain(const Matrix<Type, M, N> &x,
                                  const Type scalar_lower_bound,
                                  const Type scalar_upper_bound) {
         Matrix<Type,M,N> m;
@@ -2166,7 +2166,7 @@ namespace FastMath
     }
 
     template<typename Type, size_t  M, size_t N>
-    Matrix<Type, M, N> constrain(const Matrix<Type, M, N> &x,
+    inline Matrix<Type, M, N> constrain(const Matrix<Type, M, N> &x,
                                  const Matrix<Type, M, N> &x_lower_bound,
                                  const Matrix<Type, M, N> &x_upper_bound) {
         Matrix<Type,M,N> m;

@@ -1,37 +1,34 @@
 #include <iostream>
-#include <cmath>
 #include "FastMath.hpp"
-#include "Algorithm/quadprog.hpp"
-#include "Algorithm/qcqp.hpp"
 int main() {
 
-    using namespace FastMath;
-    using namespace FastMath::Algorithm;
+    fm::Matrix4d T;
+    T.setIdentity();
 
-//    double A[4] = {1,0,0,1};
-    SquareMatrix<double, 2> A;
-    A.setIdentity();
-    A += 3 * Matrix2d::Identity() ;
-    A(0, 1) = 2;
-    A(1, 0) = 2;
+    // 将矩阵左上角写为单位正乘3
+    T.slice<3,3>(0,0) = fm::Matrix3d::Identity() * 3;
+    std::cout << T << std::endl;
 
-//    double b[2] = {-2, -3};
-    Vector2d b = {-2, -3};
+    // 将左上角3x3矩阵赋值给A
+    fm::Matrix3d A = T.slice<3,3>(0,0);
+    std::cout << A << std::endl;
 
-//    double d[2] = {1, 1};
-    Vector2d d = {1,2};
-    double r = 0.5;
+    // slice的结果使用mat()后会生成一个新矩阵，不会改变原本的矩阵
+    T.slice<3,3>(0,0).mat() += 3;
+    std::cout << T << std::endl;
 
-//    double x[2] = {};
-    Vector2d x;
+    // slice后直接进行+=，会改变原本的矩阵中的数据
+    T.slice<3,3>(0,0) -= 3;
+    std::cout << T << std::endl;
 
-    QCQP(x, A, b, d, r);
-
-    std::cout << x  << std::endl;
-
-    std::cout << "cost : " <<  (0.5*x.transpose()*A*x + x.transpose()*b).Scalar() << std::endl;
+    // 若希望使用切片之后的结果做矩阵运算，例如求逆，需要使用mat()将其转为矩阵
+    fm::Matrix3d U, S, V;
+    auto svd_success = T.slice<3, 3>(0,0).mat().SVD(U, S, V);
+    if (svd_success)
+        std::cout << U*S*V.transpose() << std::endl;
+    else
+        std::cout << "svd failure" << std::endl;
 
     return 0;
-
 }
 

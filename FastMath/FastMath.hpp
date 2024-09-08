@@ -19,4 +19,6 @@
 #include "Impl/impl.hpp"
 #include "Core/Core.hpp"
 
+namespace fm = FastMath;
+
 #endif //FASTMATH2_FASTMATH_HPP
