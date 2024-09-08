@@ -132,7 +132,7 @@ namespace FastMath::Impl {
      * @return
      */
     template<size_t n, typename T>
-    int gauss_jordan(T *a, T *b) {
+    inline int gauss_jordan(T *a, T *b) {
         int k, i, j, is, p, q;
         int js[n];
         double d, t;
@@ -215,7 +215,7 @@ namespace FastMath::Impl {
      */
 
 
-    int ldle(double a[], int n, int m, double c[]) {
+    inline int ldle(double a[], int n, int m, double c[]) {
         int i, j, l, k, u, v, w, k1, k2, k3;
         double p;
         for (i = 0; i < n; i++)
@@ -300,7 +300,7 @@ namespace FastMath::Impl {
      * @param d c[n][m]        存放方程组右端m组常数向量。返回m组解向量。
      * @return 函数返回标志值。若<0则表示系数矩阵非对称；若=0则表示失败；若>0则表示正常。
      */
-    int chlk(double a[], int n, int m, double d[]) {
+    inline int chlk(double a[], int n, int m, double d[]) {
         int i, j, k, u, v;
         if ((a[0] + 1.0 == 1.0) || (a[0] < 0.0)) return (0);
         a[0] = sqrt(a[0]);
@@ -358,7 +358,7 @@ namespace FastMath::Impl {
      * @return 若系数矩阵非对角优势，返回0标志值。否则返回非0标志值,表示迭代次数
      */
 
-    int seidel(double *a, double *b, int n, double *x, double eps = 1E-8) {
+    inline int seidel(double *a, double *b, int n, double *x, double eps = 1E-8) {
         int i, j, u, v;
         double p, t, s, q;
         int it = 0;
@@ -402,7 +402,7 @@ namespace FastMath::Impl {
      * @param eps   控制精度要求。
      */
     template<size_t n>
-    void grad(double a[], double b[], double x[], double eps = 1E-8) {
+    inline void grad(double a[], double b[], double x[], double eps = 1E-8) {
         int i, k;
         double alpha, beta, d, e;
         double p[n], r[n], s[n], q[n];
@@ -454,7 +454,7 @@ namespace FastMath::Impl {
      * @return      函数返回标志值。若=0则表示失败；否则表示正常。
      */
     template<size_t m, size_t n>
-    int gmqr(double a[], double b[], double q[]) {
+    inline int gmqr(double a[], double b[], double q[]) {
         int i, j;
         double d;
         double c[n];
@@ -487,7 +487,7 @@ namespace FastMath::Impl {
      * @return      若系数矩阵奇异或校正达到最大迭代次数次还不满足精度要求，返回0标志值。正常则返回迭代次数
      */
     template<size_t n>
-    int bingt(double a[], double b[], double x[], double eps=1E-8, int mat_it=10) {
+    inline int bingt(double a[], double b[], double x[], double eps=1E-8, int mat_it=10) {
         int i, j, k;
         double q, qq;
         double p[n * n], r[n], e[n];

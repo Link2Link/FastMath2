@@ -218,7 +218,7 @@ namespace FastMath::Impl::NL {
      * @return
      */
     template<size_t m, size_t n>
-    int lplq(double a[], double b[], double c[], double x[]) {
+    inline int lplq(double a[], double b[], double c[], double x[]) {
         int i, mn, k, j;
         double s, z, dd, y;
         int js[m];

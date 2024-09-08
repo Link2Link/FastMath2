@@ -1582,7 +1582,7 @@ namespace FastMath::Impl {
      *
      * */
     template<size_t n>
-    double eig_top1(double a[], double v[], double eps = 1E-8, int mat_it = 1000) {
+    inline double eig_top1(double a[], double v[], double eps = 1E-8, int mat_it = 1000) {
         int i, j, k, flag = 1, iteration;
         double lambda, sum, z, err, t, d, f;
         double u[n];
