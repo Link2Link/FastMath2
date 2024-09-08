@@ -915,6 +915,7 @@ namespace FastMath
 
         SquareMatrix<Type, N> sqrt()
         {
+            CLAIM_SQUARE_MATRIX;
             SquareMatrix<Type, N> X;
             SquareMatrix<Type, N> Y;
 
