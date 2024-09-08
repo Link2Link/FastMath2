@@ -2,17 +2,10 @@
 #include "FastMath.hpp"
 int main() {
 
-    fm::Matrix<double, 4, 3> A = {1,2,3,4,5,6,1};
+    fm::Matrix3d R(2);
+    std::cout << R.power(3) << std::endl;
+    std::cout << (R*R*R == R.power(3)) << std::endl;
 
-    fm::Matrix<double, 4, 4> Q;
-    fm::Matrix<double, 4, 3> R;
-
-    auto success = A.QR(Q, R);
-    std::cout << success << std::endl;
-    std::cout << A << std::endl;
-    std::cout << Q << std::endl;
-    std::cout << R << std::endl;
-    std::cout << Q*R << std::endl;
     return 0;
 }
 

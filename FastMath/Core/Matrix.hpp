@@ -879,6 +879,7 @@ namespace FastMath
 
         SquareMatrix<Type, N> power(size_t s)
         {
+            CLAIM_SQUARE_MATRIX;
             // calc order t
             int t = 0;
             size_t temp = s;
