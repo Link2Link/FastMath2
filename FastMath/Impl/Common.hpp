@@ -24,6 +24,13 @@
 #include <iomanip>
 #include <chrono>
 
+//#define DEBUG_FASTMATH        // 开启调试打印
+
+#ifdef DEBUG_FASTMATH
+#define DEBUG_COUT std::cout
+#define FILE_LINE "File : " << __FILE__ << " line : " << __LINE__
+#endif
+
 namespace FastMath::Impl{
 
     /* 常数定义 */

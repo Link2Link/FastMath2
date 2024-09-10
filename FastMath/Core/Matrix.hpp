@@ -1044,6 +1044,8 @@ namespace FastMath
             }
             // 使用幂迭代方法求最大特征值
             Matrix<Type, N, N> A = mat.T() * mat;
+            if (A.abs().max() < FastMath::M_EPS)
+                return 0.0;
             Vector<Type, N> v(1);
             Type lambda = Impl::eig_top1<N>(MatRef(A._data), MatRef(v._data));
             return std::sqrt(lambda);
