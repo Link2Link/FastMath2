@@ -2053,6 +2053,22 @@ namespace FastMath
         return -other + scalar;
     }
 
+    template<typename Type1, typename Type2, size_t  M, size_t N>
+    inline bool operator<(const Matrix<Type1, M, N> &A, const Matrix<Type2, M, N> &B)
+    {
+        for (size_t i = 0; i < M; ++i)
+            for (size_t j = 0; j < N; ++j)
+                if (A(i,j) > B(i,j))
+                    return false;
+        return true;
+    }
+
+    template<typename Type1, typename Type2, size_t  M, size_t N>
+    inline bool operator>(const Matrix<Type1, M, N> &A, const Matrix<Type2, M, N> &B)
+    {
+        return !(A < B);
+    }
+
 
     namespace typeFunction
     {
