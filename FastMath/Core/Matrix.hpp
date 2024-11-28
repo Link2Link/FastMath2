@@ -778,7 +778,7 @@ namespace FastMath
         }
 
 
-        Matrix<Type, M, N> abs() const
+        [[nodiscard]] Matrix<Type, M, N> abs() const
         {
             Matrix<Type, M, N> r;
             for (size_t i=0; i<M; i++) {
@@ -790,7 +790,7 @@ namespace FastMath
         }
 
 
-        Type max() const
+        [[nodiscard]] Type max() const
         {
             Type max_val = (*this)(0,0);
             for (size_t i=0; i<M; i++) {
@@ -805,7 +805,7 @@ namespace FastMath
         }
 
 
-        Type min() const
+        [[nodiscard]] Type min() const
         {
             Type min_val = (*this)(0,0);
             for (size_t i=0; i<M; i++) {
@@ -817,6 +817,18 @@ namespace FastMath
                 }
             }
             return min_val;
+        }
+
+        [[nodiscard]] Type mean() const
+        {
+            Type sum = 0;
+            for (size_t i=0; i<M; i++) {
+                for (size_t j=0; j<N; j++) {
+                    sum += (*this)(i,j);
+                }
+            }
+
+            return sum / (M*N);
         }
 
         [[nodiscard]] bool isAllNan() const {
