@@ -431,7 +431,7 @@ namespace FastMath::Impl {
         if ((a[0] + 1.0 == 1.0) || (a[0] < 0.0)) {
             return (0);
         }
-        a[0] = sqrt(a[0]);
+        a[0] = std::sqrt(a[0]);
         for (i = 1; i <= n - 1; i++) {
             u = i * n;
             a[u] = a[u] / a[0];
@@ -445,7 +445,7 @@ namespace FastMath::Impl {
             if ((a[l] + 1.0 == 1.0) || (a[l] < 0.0)) {
                 return (0);
             }
-            a[l] = sqrt(a[l]);
+            a[l] = std::sqrt(a[l]);
             for (i = j + 1; i <= n - 1; i++) {
                 u = i * n + j;
                 for (k = 0; k <= j - 1; k++)
@@ -546,11 +546,11 @@ namespace FastMath::Impl {
                 alpha = alpha + t * t;
             }
             if (a[l] > 0.0) u = -u;
-            alpha = u * sqrt(alpha);
+            alpha = u * std::sqrt(alpha);
             if (fabs(alpha) + 1.0 == 1.0) {
                 return 0;
             }
-            u = sqrt(2.0 * alpha * (alpha - a[l]));
+            u = std::sqrt(2.0 * alpha * (alpha - a[l]));
             if ((u + 1.0) != 1.0) {
                 a[l] = (a[l] - alpha) / u;
                 for (i = k + 1; i <= m - 1; i++) {
@@ -627,7 +627,7 @@ namespace FastMath::Impl {
                         ix = (i - 1) * n + kk - 1;
                         d = d + a[ix] * a[ix];
                     }
-                    s[kk - 1] = sqrt(d);
+                    s[kk - 1] = std::sqrt(d);
                     if (s[kk - 1] != 0.0) {
                         ix = (kk - 1) * n + kk - 1;
                         if (a[ix] != 0.0) {
@@ -672,7 +672,7 @@ namespace FastMath::Impl {
                     d = 0.0;
                     for (i = kk + 1; i <= n; i++)
                         d = d + e[i - 1] * e[i - 1];
-                    e[kk - 1] = sqrt(d);
+                    e[kk - 1] = std::sqrt(d);
                     if (e[kk - 1] != 0.0) {
                         if (e[kk] != 0.0) {
                             e[kk - 1] = fabs(e[kk - 1]);
@@ -858,7 +858,7 @@ namespace FastMath::Impl {
                     c = c * c;
                     shh = 0.0;
                     if ((b != 0.0) || (c != 0.0)) {
-                        shh = sqrt(b * b + c);
+                        shh = std::sqrt(b * b + c);
                         if (b < 0.0) shh = -shh;
                         shh = c / (b + shh);
                     }
@@ -975,7 +975,7 @@ namespace FastMath::Impl {
             cs[1] = 0.0;
             d = 0.0;
         } else {
-            d = sqrt(fg[0] * fg[0] + fg[1] * fg[1]);
+            d = std::sqrt(fg[0] * fg[0] + fg[1] * fg[1]);
             if (fabs(fg[0]) > fabs(fg[1])) {
                 d = fabs(d);
                 if (fg[0] < 0.0) d = -d;
@@ -1068,7 +1068,7 @@ namespace FastMath::Impl {
                 if (i == 1) c[i] = q[i * n + i - 1];
                 b[i] = 0.0;
             } else {
-                c[i] = sqrt(h);
+                c[i] = std::sqrt(h);
                 u = i * n + i - 1;
                 if (q[u] > 0.0) c[i] = -c[i];
                 h = h - q[u] * c[i];
@@ -1154,7 +1154,7 @@ namespace FastMath::Impl {
                     it = it + 1;
                     g = b[j];
                     p = (b[j + 1] - g) / (2.0 * c[j]);
-                    r = sqrt(p * p + 1.0);
+                    r = std::sqrt(p * p + 1.0);
                     if (p >= 0.0) b[j] = c[j] / (p + r);
                     else b[j] = c[j] / (p - r);
                     h = g - b[j];
@@ -1168,13 +1168,13 @@ namespace FastMath::Impl {
                         h = e * p;
                         if (fabs(p) >= fabs(c[i])) {
                             e = c[i] / p;
-                            r = sqrt(e * e + 1.0);
+                            r = std::sqrt(e * e + 1.0);
                             c[i + 1] = s * p * r;
                             s = e / r;
                             e = 1.0 / r;
                         } else {
                             e = p / c[i];
-                            r = sqrt(e * e + 1.0);
+                            r = std::sqrt(e * e + 1.0);
                             c[i + 1] = s * c[i] * r;
                             s = 1.0 / r;
                             e = e / r;
@@ -1310,7 +1310,7 @@ namespace FastMath::Impl {
                 b = -(a[ii] + a[ll]);
                 c = a[ii] * a[ll] - a[jj] * a[kk];
                 w = b * b - 4.0 * c;
-                y = sqrt(fabs(w));
+                y = std::sqrt(fabs(w));
                 if (w > 0.0)     //计算两个实特征值
                 {
                     xy = 1.0;
@@ -1356,7 +1356,7 @@ namespace FastMath::Impl {
                     if ((fabs(p) + fabs(q) + fabs(r)) != 0.0) {
                         xy = 1.0;
                         if (p < 0.0) xy = -1.0;
-                        s = xy * sqrt(p * p + q * q + r * r);
+                        s = xy * std::sqrt(p * p + q * q + r * r);
                         if (k != l) a[k * n + k - 1] = -s;
                         e = -q / s;
                         f = -r / s;
@@ -1449,11 +1449,11 @@ namespace FastMath::Impl {
             s = q * n + q;
             x = -a[u];
             y = (a[s] - a[w]) / 2.0;
-            omega = x / sqrt(x * x + y * y);
+            omega = x / std::sqrt(x * x + y * y);
             if (y < 0.0) omega = -omega;
-            sn = 1.0 + sqrt(1.0 - omega * omega);
-            sn = omega / sqrt(2.0 * sn);
-            cn = sqrt(1.0 - sn * sn);
+            sn = 1.0 + std::sqrt(1.0 - omega * omega);
+            sn = omega / std::sqrt(2.0 * sn);
+            cn = std::sqrt(1.0 - sn * sn);
             fm = a[w];
             a[w] = fm * cn * cn + a[s] * sn * sn + a[u] * omega;
             a[s] = fm * sn * sn + a[s] * cn * cn - a[u] * omega;
@@ -1517,7 +1517,7 @@ namespace FastMath::Impl {
                 d = a[i * n + j];
                 ff = ff + d * d;
             }
-        ff = sqrt(2.0 * ff);
+        ff = std::sqrt(2.0 * ff);
         ff = ff / (1.0 * n);
         while (ff >= eps) {
             d = 0.0;
@@ -1535,11 +1535,11 @@ namespace FastMath::Impl {
                 s = q * n + q;
                 x = -a[u];
                 y = (a[s] - a[w]) / 2.0;
-                omega = x / sqrt(x * x + y * y);
+                omega = x / std::sqrt(x * x + y * y);
                 if (y < 0.0) omega = -omega;
-                sn = 1.0 + sqrt(1.0 - omega * omega);
-                sn = omega / sqrt(2.0 * sn);
-                cn = sqrt(1.0 - sn * sn);
+                sn = 1.0 + std::sqrt(1.0 - omega * omega);
+                sn = omega / std::sqrt(2.0 * sn);
+                cn = std::sqrt(1.0 - sn * sn);
                 fm = a[w];
                 a[w] = fm * cn * cn + a[s] * sn * sn + a[u] * omega;
                 a[s] = fm * sn * sn + a[s] * cn * cn - a[u] * omega;
@@ -1597,7 +1597,7 @@ namespace FastMath::Impl {
             }
             d = 0.0;            //计算向量的范数
             for (k = 0; k < n; k++) d = d + u[k] * u[k];
-            d = sqrt(d);
+            d = std::sqrt(d);
             for (i = 0; i < n; i++) { v[i] = u[i] / d; }
             if (iteration > 1) {
                 err = fabs((d - t) / d);
