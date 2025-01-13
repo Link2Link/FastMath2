@@ -1,25 +1,20 @@
 #include <iostream>
 #include "FastMath.hpp"
+#include "FastMath/Algorithm/CurveFitting.hpp"
+
 int main() {
+    constexpr size_t N = 5;
+    fm::Vector<double, N> xc{0, 0.3, 0.6, 0.9, 1.2};
+    fm::Vector<double, N> yc;
 
-    double R_array[3*3] = {1,2,3,4,56,6,7,8,9};
-    fm::Matrix3d R;
-    R.loadFrom(R_array);    //loadFrom 会对数组尺寸进行检查
-    std::cout << R << std::endl;
+    for (int k = 0; k < N; ++k) {
+        yc(k) = std::sin(xc(k));
+    }
 
-    R.loadFromArrayPtr(R_array);
-    std::cout << R << std::endl;   // loadFromArrayPtr 只需传入受元素的指针，不会对尺寸进行检查
-
-    R = R * 2;
-
-    double R_array_out[9];
-    R.copyTo(R_array_out);     // 将R中内部数据拷贝到数组R_array_out中
-    std::cout << fm::Impl::MatToString(&R_array_out[0], 3, 3) << std::endl; //MatToString是对普通数组的打印支持
-
-    R.copyToArrayPtr(R_array_out);     //将R中内部数据拷贝到R_array_out指向的首地址处
-    std::cout << fm::Impl::MatToString(&R_array_out[0], 3, 3) << std::endl; //MatToString是对普通数组的打印支持
-
-
+    double x = 0.5;
+    auto w = FastMath::Algorithm::RBFtrain(xc, yc);
+    std::cout << w << std::endl;
+    std::cout << FastMath::Algorithm::RBFeval(0.5, xc, w) << std::endl;
 
     return 0;
 }
