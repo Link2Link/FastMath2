@@ -1972,6 +1972,10 @@ namespace FastMath
     inline std::ostream& operator<<(std::ostream& os,
                              const Matrix<Type, M, N>& matrix)
     {
+        // 设置输出格式为固定小数点格式，并设置小数位数
+        os << std::fixed << std::setprecision(4); // 这里设置为保留4位小数，可以根据需要调整
+        // os << std::scientific << std::setprecision(4); // 设置保留4位小数，可以根据需要调整
+
         for (size_t i = 0; i < M; ++i) {
             os << "[";
             for (size_t j = 0; j < N; ++j) {
