@@ -1972,19 +1972,28 @@ namespace FastMath
     inline std::ostream& operator<<(std::ostream& os,
                              const Matrix<Type, M, N>& matrix)
     {
-        // 设置输出格式为固定小数点格式，并设置小数位数
-        os << std::fixed << std::setprecision(4); // 这里设置为保留4位小数，可以根据需要调整
-        // os << std::scientific << std::setprecision(4); // 设置保留4位小数，可以根据需要调整
+        os << std::fixed << std::setprecision(4); // 保留4位小数
 
+        // 计算每个元素的最大宽度
+        size_t maxWidth = 0;
         for (size_t i = 0; i < M; ++i) {
-            os << "[";
             for (size_t j = 0; j < N; ++j) {
-                os << std::setw(10) << matrix(i, j);
-                os << "\t";
+                std::ostringstream oss;
+                oss << std::fixed << std::setprecision(4) << matrix(i, j);
+                maxWidth = std::max(maxWidth, oss.str().length());
             }
-            os << "]" << std::endl;
+        }
+
+        // 打印矩阵
+        for (size_t i = 0; i < M; ++i) {
+            os << "[ ";
+            for (size_t j = 0; j < N; ++j) {
+                os << std::setw(maxWidth + 1) << matrix(i, j);
+            }
+            os << " ]" << std::endl;
         }
         return os;
+
     }
 
     template<typename Type, size_t  P, size_t Q, size_t  M, size_t N>

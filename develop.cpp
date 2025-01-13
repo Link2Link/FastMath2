@@ -13,6 +13,7 @@ int main() {
 
     double x = 0.5;
     auto w = FastMath::Algorithm::RBFtrain(xc, yc);
+
     std::cout << w << std::endl;
     std::cout << FastMath::Algorithm::RBFeval(0.5, xc, w) << std::endl;
 
