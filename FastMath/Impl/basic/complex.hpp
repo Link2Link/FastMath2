@@ -109,14 +109,14 @@ namespace FastMath::Impl {
         {
             complex c;
             double r, q;
-            q = atan2(I, R);
-            r = sqrt(R * R + I * I);
+            q = std::atan2(I, R);
+            r = std::sqrt(R * R + I * I);
             if (r + 1.0 != 1.0) {
                 r = n * std::log(r);
                 r = std::exp(r);
             }
-            c.R = r * cos(n * q);
-            c.I = r * sin(n * q);
+            c.R = r * std::cos(n * q);
+            c.I = r * std::sin(n * q);
             return c;
         }
 
@@ -126,16 +126,16 @@ namespace FastMath::Impl {
             int k;
             double r, q, t;
             if (n < 1) return;
-            q = atan2(I, R);
-            r = sqrt(R * R + I * I);
+            q = std::atan2(I, R);
+            r = std::sqrt(R * R + I * I);
             if (r + 1.0 != 1.0) {
                 r = (1.0 / n) * std::log(r);
                 r = std::exp(r);
             }
             for (k = 0; k < n; k++) {
                 t = (2.0 * k * M_PI_F + q) / n;
-                c.R = r * cos(t);
-                c.I = r * sin(t);
+                c.R = r * std::cos(t);
+                c.I = r * std::sin(t);
                 p[k] = c;
             }
         }
@@ -144,9 +144,9 @@ namespace FastMath::Impl {
         {
             complex c;
             double p;
-            p = exp(R);
-            c.R = p * cos(I);
-            c.I = p * sin(I);
+            p = std::exp(R);
+            c.R = p * std::cos(I);
+            c.I = p * std::sin(I);
             return c;
         }
 
@@ -155,9 +155,9 @@ namespace FastMath::Impl {
             complex c;
             double p;
             p = R * R + I * I;
-            p = log(sqrt(p));
+            p = std::log(std::sqrt(p));
             c.R = p;
-            c.I = atan2(I, R);
+            c.I = std::atan2(I, R);
             return c;
         }
 
@@ -165,10 +165,10 @@ namespace FastMath::Impl {
         {
             complex c;
             double p, q;
-            p = exp(I);
-            q = exp(-I);
-            c.R = sin(R) * (p + q) / 2;
-            c.I = cos(R) * (p - q) / 2;
+            p = std::exp(I);
+            q = std::exp(-I);
+            c.R = std::sin(R) * (p + q) / 2;
+            c.I = std::cos(R) * (p - q) / 2;
             return c;
         }
 
@@ -176,10 +176,10 @@ namespace FastMath::Impl {
         {
             complex c;
             double p, q;
-            p = exp(I);
-            q = exp(-I);
-            c.R = cos(R) * (p + q) / 2;
-            c.I = -sin(R) * (p - q) / 2;
+            p = std::exp(I);
+            q = std::exp(-I);
+            c.R = std::cos(R) * (p + q) / 2;
+            c.I = -std::sin(R) * (p - q) / 2;
             return c;
         }
 

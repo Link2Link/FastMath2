@@ -303,7 +303,7 @@ namespace FastMath::Impl {
     inline int chlk(double a[], int n, int m, double d[]) {
         int i, j, k, u, v;
         if ((a[0] + 1.0 == 1.0) || (a[0] < 0.0)) return (0);
-        a[0] = sqrt(a[0]);
+        a[0] = std::sqrt(a[0]);
         for (j = 1; j <= n - 1; j++) a[j] = a[j] / a[0];
         for (i = 1; i <= n - 1; i++) {
             u = i * n + i;
@@ -312,7 +312,7 @@ namespace FastMath::Impl {
                 a[u] = a[u] - a[v] * a[v];
             }
             if ((a[u] + 1.0 == 1.0) || (a[u] < 0.0)) return (0);
-            a[u] = sqrt(a[u]);
+            a[u] = std::sqrt(a[u]);
             if (i != (n - 1)) {
                 for (j = i + 1; j <= n - 1; j++) {
                     v = i * n + j;
@@ -432,7 +432,7 @@ namespace FastMath::Impl {
             beta = d / e;
             d = 0.0;
             for (k = 0; k <= n - 1; k++) d = d + r[k] * r[k];
-            d = sqrt(d);
+            d = std::sqrt(d);
             if (d < eps) {
                 return;
             }

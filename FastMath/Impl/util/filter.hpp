@@ -129,7 +129,7 @@ namespace FastMath::Impl::util {
             }
         for (i = 0; i <= n - 1; i++)     //计算变换的模与幅角
         {
-            pr[i] = sqrt(fr[i] * fr[i] + fi[i] * fi[i]);
+            pr[i] = std::sqrt(fr[i] * fr[i] + fi[i] * fi[i]);
             if (fabs(fr[i]) < 1E-8 * fabs(fi[i])) {
                 if ((fi[i] * fr[i]) > 0) pi[i] = 90.0;
                 else pi[i] = -90.0;
