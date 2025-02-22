@@ -328,8 +328,8 @@ power( int n )计算n个矩阵的连乘，但算次数比直接连乘少。例�
 ```
 fm::Matrix3d R(2);
 R +=  fm::Matrix3d::Identity();
-std::cout << R.std::sqrt() << std::endl;
-std::cout << (R.std::sqrt() * R.std::sqrt() == R) << std::endl;
+std::cout << R.sqrt() << std::endl;
+std::cout << (R.sqrt() * R.sqrt() == R) << std::endl;
 ```
 
 ### 4.1.3.矩阵的指数
