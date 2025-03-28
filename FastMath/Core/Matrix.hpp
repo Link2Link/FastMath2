@@ -266,6 +266,18 @@ namespace FastMath
             return *(_data[0] + i);
         }
 
+        inline const Type &operator[](size_t i) const {
+            assert(i < M*N);
+
+            return *(_data[0] + i);
+        }
+
+        inline Type &operator[](size_t i) {
+            assert(i < M*N);
+
+            return *(_data[0] + i);
+        }
+
 
         Matrix<Type, M, N> & operator=(const Matrix<Type, M, N> &other)
         {
