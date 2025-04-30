@@ -726,6 +726,23 @@ namespace FastMath
             return M;
         }
 
+        /*
+         *  创建更改尺寸的矩阵，数据被复制到新矩阵中，不会影响原本的矩阵。
+         *  这个函数是深拷贝。
+         */
+        template<size_t P, size_t Q>
+        Matrix<Type, P, Q> resize() {
+            static_assert(P > 0, "P must be greater than 0");
+            static_assert(Q > 0, "Q must be greater than 0");
+            static_assert(P*Q == M*N, "dimension mismatch");
+            Matrix<Type, P, Q> res;
+            Matrix<Type, M, N> &self = *this;
+            for (size_t i = 0; i < M*N; i++) {
+                res(i) = self(i);
+            }
+            return res;
+        }
+
         inline void setOne()
         {
             setAll(1);
@@ -2236,7 +2253,17 @@ namespace FastMath
     }
 
 
+    // 从二维数组创建矩阵的接口
+    template <size_t M, size_t N, typename T>
+    Matrix<double, M, N> MAT(T head_ptr) {
+        return {head_ptr};
+    }
 
+    // 从一维数组创建矩阵的接口
+    template <size_t M, typename T>
+    Matrix<double, M, 1> MAT(T head_ptr) {
+        return {head_ptr};
+    }
 
 
 }
