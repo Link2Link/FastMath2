@@ -2253,18 +2253,6 @@ namespace FastMath
     }
 
 
-    // 从二维数组创建矩阵的接口
-    template <size_t M, size_t N, typename T>
-    Matrix<double, M, N> MAT(T head_ptr) {
-        return {head_ptr};
-    }
-
-    // 从一维数组创建矩阵的接口
-    template <size_t M, typename T>
-    Matrix<double, M, 1> MAT(T head_ptr) {
-        return {head_ptr};
-    }
-
 
 }
 

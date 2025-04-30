@@ -8,13 +8,10 @@ using namespace std;
 
 
 int main() {
-    double A[3][4] = {1,2,3,4,5,6,7,8,9,10,11,12};
+    double A[4][3] = {1,2,3,4,5,6,7,8,9,10,11,12};
     double B[3] = {1,2,3};
-    auto x = fm::MAT<3,4>(A);
-    std::cout << fm::MAT<3,4>(A);
-    std::cout << fm::MAT<3>(B).T();
 
-    std::cout << fm::MAT<3,4>(A).resize<1,12>();
+    std::cout << fm::Matrix<double, 4, 3>(A) * fm::Matrix<double, 3, 1>(B) << std::endl;
 
     return 0;
 }
